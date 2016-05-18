@@ -1,0 +1,257 @@
+<!DOCTYPE html>
+<html>
+
+  <head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  <title>Hello! Let&#39;s start with CLion</title>
+  <meta name="description" content="Hello! My name is Vladyslav Batyrenko, I’m a student living in Kyiv, Ukraine.This is my first GSoC blog post about my participating in Ark project.In this po...">
+
+  <link rel="stylesheet" href="/ark-gsoc-2016/css/main.css">
+  <link rel="canonical" href="http://mvlabat.github.io/ark-gsoc-2016/setting/up/environment/2016/05/18/lets-start-with-clion.html">
+  <link rel="alternate" type="application/rss+xml" title="mvlabat's blog: Ark project, Google Summer of Code 2016" href="http://mvlabat.github.io/ark-gsoc-2016/feed.xml">
+</head>
+
+
+  <body>
+
+    <header class="site-header">
+
+  <div class="wrapper">
+
+    <a class="site-title" href="/ark-gsoc-2016/">mvlabat's blog: Ark project, Google Summer of Code 2016</a>
+
+    <nav class="site-nav">
+      <a href="#" class="menu-icon">
+        <!--<svg viewBox="0 0 18 15">
+          <path fill="#424242" d="M18,1.484c0,0.82-0.665,1.484-1.484,1.484H1.484C0.665,2.969,0,2.304,0,1.484l0,0C0,0.665,0.665,0,1.484,0 h15.031C17.335,0,18,0.665,18,1.484L18,1.484z"/>
+          <path fill="#424242" d="M18,7.516C18,8.335,17.335,9,16.516,9H1.484C0.665,9,0,8.335,0,7.516l0,0c0-0.82,0.665-1.484,1.484-1.484 h15.031C17.335,6.031,18,6.696,18,7.516L18,7.516z"/>
+          <path fill="#424242" d="M18,13.516C18,14.335,17.335,15,16.516,15H1.484C0.665,15,0,14.335,0,13.516l0,0 c0-0.82,0.665-1.484,1.484-1.484h15.031C17.335,12.031,18,12.696,18,13.516L18,13.516z"/>
+        </svg>-->
+      </a>
+
+      <div class="trigger">
+        
+          
+        
+          
+        
+          
+        
+      </div>
+    </nav>
+
+  </div>
+
+</header>
+
+
+    <div class="page-content">
+      <div class="wrapper">
+        <article class="post" itemscope itemtype="http://schema.org/BlogPosting">
+
+  <header class="post-header">
+    <h1 class="post-title" itemprop="name headline">Hello! Let's start with CLion</h1>
+    <p class="post-meta"><time datetime="2016-05-18T10:58:24+00:00" itemprop="datePublished">May 18, 2016</time></p>
+  </header>
+
+  <div class="post-content" itemprop="articleBody">
+    <p>Hello! My name is Vladyslav Batyrenko, I’m a student living in Kyiv, Ukraine.
+This is my first GSoC blog post about my participating in Ark project.
+In this post I would like to tell you how I managed to set up my environment
+for coding with CLion, utilizing it not only as an editor but also as a
+debugging tool. You may think that’s a trivial task almost every IDE can handle - 
+and this is true, but until your project requires a non-trivial deployment
+process before it is able to start. So if you want to know how to build,
+deploy and run/debug your executable with pressing only <code class="highlighter-rouge">(SHIFT+F10)</code> buttons,
+you may find this post useful.</p>
+
+<p>This was a thorny way with doing a lot of workarounds…</p>
+
+<h2 id="getting-started">Getting started</h2>
+<p>CLion is an IDE from JetBrains, it has a very rich set of features.
+You can easily get it from its <a href="https://www.jetbrains.com/clion/">official site</a>.
+Here I’ll use Ark project I’ll be working on as an example for setting up CLion.</p>
+
+<p><code class="highlighter-rouge">git clone git://anongit.kde.org/ark</code></p>
+
+<p>Ark uses CMake for building and it’s a fortune because so does CLion.
+After opening the project in the IDE and trying to run it
+<code class="highlighter-rouge">(Run -&gt; Run)</code> or <code class="highlighter-rouge">(SHIFT+F10)</code> you must get “Unable to find Ark’s KPart
+component, please check your installation.” error. That’s it. We’ll want
+to run <code class="highlighter-rouge">make install</code> for built project and to run <strong>installed</strong> executable.
+For accomplishing this task CLion provides us with <code class="highlighter-rouge">External tool</code> functionality.</p>
+
+<p>After spending much time on researching, how exactly I can make CLion
+run <strong>installed</strong> executable I came up with the following solution…
+If someone has another ideas please feel free to share them, that’s only
+how I myself managed to workaround the situation.</p>
+
+<h2 id="setting-up-the-project-in-clion">Setting up the project in CLion</h2>
+<p><code class="highlighter-rouge">External tool</code> allows us to run a custom bash script before/after build step.</p>
+
+<p><strong>Firstly</strong>, I though, I needed to somehow make CMake communicate with
+my bash script in order to get my script to know where the build directory is.
+CLion generates random path (for our perception) for its CMake binary dir…
+I had, for instance, <code class="highlighter-rouge">/home/mvlabat/.CLion2016.1/system/cmake/generated/ark-e86190eb/e86190eb/Debug</code>.</p>
+
+<p>So I’ve ended up with adding to Ark target’s CMakeList.txt file the following
+lines:</p>
+
+<figure class="highlight"><pre><code class="language-cmake" data-lang="cmake">set(ARK_INSTALL /path/mvlabat/gsoc/ark_install) # Use your path where you want to keep your installed files.
+add_custom_command(TARGET ark
+    PRE_BUILD
+    COMMAND echo "${CMAKE_BINARY_DIR}" &gt; "${ARK_INSTALL}/cmake_binary_dir"
+)</code></pre></figure>
+
+<p>After each build command this will create the file called “cmake_binary_dir”
+with a path to CMAKE_BINARY_DIR.</p>
+
+<p><strong>Secondly</strong>, I had to set the environmental variables for building and
+running processes. On <a href="https://community.kde.org/KDE_Utils/Ark">Ark page in KDE Community Wiki</a>
+it is stated that we have to set these variables:</p>
+
+<figure class="highlight"><pre><code class="language-bash" data-lang="bash"><span class="c"># Install prefix, replace with any folder you want</span>
+<span class="nb">export </span><span class="nv">KF5</span><span class="o">=</span>~/foo/whatever
+
+<span class="nb">export </span><span class="nv">XDG_DATA_DIRS</span><span class="o">=</span><span class="nv">$KF5</span>/share:<span class="nv">$XDG_DATA_DIRS</span>
+<span class="nb">export </span><span class="nv">XDG_CONFIG_DIRS</span><span class="o">=</span><span class="nv">$KF5</span>/etc/xdg:/etc/xdg
+<span class="nb">export </span><span class="nv">PATH</span><span class="o">=</span><span class="nv">$KF5</span>/bin:<span class="nv">$PATH</span>
+<span class="nb">export </span><span class="nv">QT_PLUGIN_PATH</span><span class="o">=</span><span class="nv">$KF5</span>/lib/plugins:<span class="nv">$QT_PLUGIN_PATH</span></code></pre></figure>
+
+<p>Alright, said - done. We have to go to both CLion CMake options<br />
+<code class="highlighter-rouge">(File -&gt; Settings (CTRL+ALT+S) -&gt; Build, Execution, Deployment -&gt; CMake)</code><br />
+and target’s build options<br />
+<code class="highlighter-rouge">(Run -&gt; Edit Configurations...) (ALT+SHIFT+F10 and then press 0)</code>,<br />
+where we’ll set them.</p>
+
+<p><img src="http://mvlabat.github.io/assets/2016-05-18/environment-variables.png" alt="Environment Variables" /></p>
+
+<p>Be aware! CLion, unfortunately, doesn’t allow to use bash variables here,
+so you won’t be able to write something like “/custom/folder/bin:$PATH”.
+So check you variables from terminal with <code class="highlighter-rouge">echo $VARIABLE</code> and paste needed
+values manually.<br />
+Correct me if it is/will be wrong, I’ll become happy.</p>
+
+<p><strong>Finally</strong>, we can add our bash script. Don’t leave target’s build options.
+At the bottom you’ll see the pane, which contains “Build” command running
+before launch. Here we can add our external tool, which will be a bash script.</p>
+
+<p><img src="http://mvlabat.github.io/assets/2016-05-18/after-install-script.png" alt="After Install script" /></p>
+
+<p>(On the screenshot you may see a little difference, I just pressed edit
+buttons in order to show you my existing External Tool, while you’ll
+have to add your own.)<br /></p>
+
+<p>And there are the contents of the script:</p>
+
+<figure class="highlight"><pre><code class="language-bash" data-lang="bash"><span class="c">#!/bin/bash</span>
+<span class="nv">working_dir</span><span class="o">=</span>/home/mvlabat/gsoc/ark_install
+<span class="nv">cmake_binary_dir</span><span class="o">=</span><span class="k">$(</span>&lt;/home/mvlabat/gsoc/ark_install/cmake_binary_dir<span class="k">)</span>
+
+<span class="nb">cd</span> <span class="s2">"</span><span class="nv">$cmake_binary_dir</span><span class="s2">"</span>
+rm CMakeCache.txt
+<span class="c"># The first argument is the path to the project sources</span>
+cmake ~/ClionProjects/ark/ -DCMAKE_INSTALL_PREFIX<span class="o">=</span>/home/mvlabat/gsoc/ark_install -DKDE_INSTALL_LIBDIR<span class="o">=</span>lib -DCMAKE_BUILD_TYPE<span class="o">=</span>Debug
+<span class="nb">cd</span> -
+
+<span class="c"># '8' should be replaced with your CPU's thread count.</span>
+make -j8 -C <span class="nv">$cmake_binary_dir</span> install
+
+<span class="nv">app_path</span><span class="o">=</span><span class="s2">"</span><span class="nv">$cmake_binary_dir</span><span class="s2">/app/ark"</span>
+rm <span class="nv">$app_path</span>
+ln -s <span class="nv">$working_dir</span>/bin/ark <span class="nv">$app_path</span></code></pre></figure>
+
+<p>P.S. Remember to replace the according strings with your install path.</p>
+
+<h2 id="running">Running</h2>
+<p>Now we can start our happy debuggin! :)</p>
+
+<p>Set your break points, then just press <code class="highlighter-rouge">ALT+SHIFT+F9</code>, select Ark target
+(later you can just use <code class="highlighter-rouge">SHIFT+F9</code>) and enjoy! I hope everything will
+work on your local machines.</p>
+
+<p>If you have any problems, questions, marks, feel free to comment this post.</p>
+
+<p>Thank you.</p>
+
+
+  </div>
+
+  <div class="post-comments">
+    <div id="disqus_thread"></div>
+    <script>
+      /**
+       * RECOMMENDED CONFIGURATION VARIABLES: EDIT AND UNCOMMENT THE SECTION BELOW TO INSERT DYNAMIC VALUES FROM YOUR PLATFORM OR CMS.
+       * LEARN WHY DEFINING THESE VARIABLES IS IMPORTANT: https://disqus.com/admin/universalcode/#configuration-variables
+       */
+
+      var disqus_config = function () {
+        this.page.url = "http://mvlabat.github.io/setting/up/environment/2016/05/18/lets-start-with-clion.html";
+        this.page.identifier = "/setting/up/environment/2016/05/18/lets-start-with-clion";
+      };
+
+      (function() { // DON'T EDIT BELOW THIS LINE
+        var d = document, s = d.createElement('script');
+
+        s.src = '//ark-gsoc-2016.disqus.com/embed.js';
+
+        s.setAttribute('data-timestamp', +new Date());
+        (d.head || d.body).appendChild(s);
+      })();
+    </script>
+    <noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript" rel="nofollow">comments powered by Disqus.</a></noscript>
+  </div>
+
+</article>
+
+      </div>
+    </div>
+
+    <footer class="site-footer">
+
+  <div class="wrapper">
+
+    <h2 class="footer-heading">mvlabat's blog: Ark project, Google Summer of Code 2016</h2>
+
+    <div class="footer-col-wrapper">
+      <div class="footer-col footer-col-1">
+        <ul class="contact-list">
+          <li>mvlabat's blog: Ark project, Google Summer of Code 2016</li>
+          <li><a href="mailto:mvlabat@gmail.com">mvlabat@gmail.com</a></li>
+        </ul>
+      </div>
+
+      <div class="footer-col footer-col-2">
+        <ul class="social-media-list">
+          
+          <li>
+            <a href="https://github.com/mvlabat"><span class="icon icon--github"><svg viewBox="0 0 16 16"><path fill="#828282" d="M7.999,0.431c-4.285,0-7.76,3.474-7.76,7.761 c0,3.428,2.223,6.337,5.307,7.363c0.388,0.071,0.53-0.168,0.53-0.374c0-0.184-0.007-0.672-0.01-1.32 c-2.159,0.469-2.614-1.04-2.614-1.04c-0.353-0.896-0.862-1.135-0.862-1.135c-0.705-0.481,0.053-0.472,0.053-0.472 c0.779,0.055,1.189,0.8,1.189,0.8c0.692,1.186,1.816,0.843,2.258,0.645c0.071-0.502,0.271-0.843,0.493-1.037 C4.86,11.425,3.049,10.76,3.049,7.786c0-0.847,0.302-1.54,0.799-2.082C3.768,5.507,3.501,4.718,3.924,3.65 c0,0,0.652-0.209,2.134,0.796C6.677,4.273,7.34,4.187,8,4.184c0.659,0.003,1.323,0.089,1.943,0.261 c1.482-1.004,2.132-0.796,2.132-0.796c0.423,1.068,0.157,1.857,0.077,2.054c0.497,0.542,0.798,1.235,0.798,2.082 c0,2.981-1.814,3.637-3.543,3.829c0.279,0.24,0.527,0.713,0.527,1.437c0,1.037-0.01,1.874-0.01,2.129 c0,0.208,0.14,0.449,0.534,0.373c3.081-1.028,5.302-3.935,5.302-7.362C15.76,3.906,12.285,0.431,7.999,0.431z"/></svg>
+</span><span class="username">mvlabat</span></a>
+
+          </li>
+          
+
+          
+        </ul>
+      </div>
+
+      <div class="footer-col footer-col-3">
+        <p>My GitHub pages hosted blog for Ark project in which I participate during Google Summer of Code 2016
+</p>
+        <p>
+          <a rel="license" href="http://creativecommons.org/licenses/by/4.0/"><img alt="Creative Commons License" style="border-width:0" src="https://i.creativecommons.org/l/by/4.0/88x31.png" /></a><br /><br />This work by <span xmlns:cc="http://creativecommons.org/ns#" property="cc:attributionName">Vladyslav Batyrenko</span> is licensed under a <a rel="license" href="http://creativecommons.org/licenses/by/4.0/">Creative Commons Attribution 4.0 International License</a>.
+        </p>
+      </div>
+    </div>
+
+  </div>
+
+</footer>
+
+
+  </body>
+
+</html>

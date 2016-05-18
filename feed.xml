@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>mvlabat&#39;s blog: Ark project, Google Summer of Code 2016</title>
+    <description>My GitHub pages hosted blog for Ark project in which I participate during Google Summer of Code 2016
+</description>
+    <link>http://mvlabat.github.io/ark-gsoc-2016/</link>
+    <atom:link href="http://mvlabat.github.io/ark-gsoc-2016/feed.xml" rel="self" type="application/rss+xml"/>
+    <pubDate>Wed, 18 May 2016 20:06:17 +0000</pubDate>
+    <lastBuildDate>Wed, 18 May 2016 20:06:17 +0000</lastBuildDate>
+    <generator>Jekyll v3.0.5</generator>
+    
+      <item>
+        <title>Hello! Let&#39;s start with CLion</title>
+        <description>&lt;p&gt;Hello! My name is Vladyslav Batyrenko, I’m a student living in Kyiv, Ukraine.
+This is my first GSoC blog post about my participating in Ark project.
+In this post I would like to tell you how I managed to set up my environment
+for coding with CLion, utilizing it not only as an editor but also as a
+debugging tool. You may think that’s a trivial task almost every IDE can handle - 
+and this is true, but until your project requires a non-trivial deployment
+process before it is able to start. So if you want to know how to build,
+deploy and run/debug your executable with pressing only &lt;code class=&quot;highlighter-rouge&quot;&gt;(SHIFT+F10)&lt;/code&gt; buttons,
+you may find this post useful.&lt;/p&gt;
+
+</description>
+        <pubDate>Wed, 18 May 2016 10:58:24 +0000</pubDate>
+        <link>http://mvlabat.github.io/ark-gsoc-2016/setting/up/environment/2016/05/18/lets-start-with-clion.html</link>
+        <guid isPermaLink="true">http://mvlabat.github.io/ark-gsoc-2016/setting/up/environment/2016/05/18/lets-start-with-clion.html</guid>
+        
+        
+        <category>setting</category>
+        
+        <category>up</category>
+        
+        <category>environment</category>
+        
+      </item>
+    
+  </channel>
+</rss>
