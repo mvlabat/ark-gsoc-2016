@@ -1,1 +1,2 @@
-url: "http://mvlabat.github.io/ark-gsoc-2016" # the base hostname & protocol for your site
+baseurl: "/ark-gsoc-2016" # the subpath of your site, e.g. /blog
+url: "http://mvlabat.github.io" # the base hostname & protocol for your site

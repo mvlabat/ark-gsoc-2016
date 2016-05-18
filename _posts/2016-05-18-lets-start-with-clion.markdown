@@ -78,7 +78,7 @@ and target's build options<BR>
 `(Run -> Edit Configurations...) (ALT+SHIFT+F10 and then press 0)`,<BR>
 where we'll set them.
 
-![Environment Variables]({{ site.url }}/assets/2016-05-18/environment-variables.png)
+![Environment Variables]({{ site.url + site.baseurl }}/assets/2016-05-18/environment-variables.png)
 
 Be aware! CLion, unfortunately, doesn't allow to use bash variables here,
 so you won't be able to write something like "/custom/folder/bin:$PATH".
@@ -90,7 +90,7 @@ Correct me if it is/will be wrong, I'll become happy.
 At the bottom you'll see the pane, which contains "Build" command running
 before launch. Here we can add our external tool, which will be a bash script.
 
-![After Install script]({{ site.url }}/assets/2016-05-18/after-install-script.png)
+![After Install script]({{ site.url + site.baseurl }}/assets/2016-05-18/after-install-script.png)
 
 (On the screenshot you may see a little difference, I just pressed edit
 buttons in order to show you my existing External Tool, while you'll
