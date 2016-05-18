@@ -6,8 +6,7 @@ before_script:
 - chmod +x ./script/after_success
 
 script:
-- bundle exec jekyll build 
-- bundle exec htmlproofer ./_site
+- bundle exec jekyll build --config _config.yml,_config_gh_pages.yml
 
 after_success: "./script/after_success"
 
