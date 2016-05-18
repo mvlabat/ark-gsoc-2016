@@ -1,19 +1,24 @@
 language: ruby
 rvm:
-- 2.1
+- 2.2
 
 before_script:
- - chmod +x ./script/cibuild
+- chmod +x ./script/after_success
 
-script: ./script/cibuild
+script:
+- bundle exec jekyll build && htmlproofer ./_site
+
+after_success: "./script/after_success"
 
 branches:
   only:
   - gh-pages
-  - /pages-(.*)/
-
+  - "/pages-(.*)/"
 env:
   global:
   - NOKOGIRI_USE_SYSTEM_LIBRARIES=true
-
+  - GITHUB_REPO: github.com/mvlabat/ark-gsoc-2016.git
+  - REPO_TARGET_BRANCH: gh-pages
+  - secure: pid1byIRL0s4QbXiYjT3K8FLeRfRUk254r+SDwkfJ04zqfYV8lmpxEN4tyF2vRS7cLicMkldtSiH+R0dyLaqgeD5PUgMIxsYQHTBel4KkRAodIm+xk3xYe6xBzOODmYBewrD2Ae5atlBhpm83r3rmIuf06djx6nLBvjiWhtKyEo91EnOzvfuy4BcTd1C65F1Z65jhyzrmsn+cQeH6mFKE5NOSQEWhvQBPxuxyuKQO/uYtl9ngQKl+/vuO9rdMqwXiG1Mk/HM43q6EFG5uFImjKcPE1An4kVSUJoZkYbwrNyFexmwn3JF1EgnvtDP88w5VC8rrXSCbkrfoODOPaj27DqQRCQA+XqvLxI7W02glNYytWmVDdUxSmyaCGZABb9JTtAeq8nvZ4Hu2byt39X2jEeZBzEPcM/AKJWXXLbd8M6rtG0poMGpjXGp9gDhQfkjTZUaB0EciiBcQ7KsL8QZZlC0Em9UCwpI+jOq1An3hDT2SyGrzsolLB6p5si/OBX2daw+OivYtwYLgunKBtG6y9xl2uDXus6Ys2wKLV41QqUQf34bIRQIqlmMiPSoa6PlrCLK74mK6LKdIkJ12P3Jd1ttxQIdJUlNKKZhxIQzxllwNiC0/NO0cURRHhaCvYeY0ixZE9EKkbXxWegAVdW4aTR+zdFH6R1NlzS/+bjkDPk=
+  - secure: aROuUlAzpvt8kNJeKcgod6GtXdaCQbUuyAWwlAmsn01cT4kSDGTS2KUZjldMPur1plRi3sfj82F26DmkFN/waz1MbbeVkOpoB6tr41cS7iF4RXNyr68UbwW/8o+vOELpaZl1lArr+s1qu8Bzjv1vQB7vWBZtuXZVX14uZKe7K+Uyg//UgvdRUmbxvhvslk2D0JX7PC4VVsu4ITDsrqZcHN8FD1MTGzZTN46MBYBZTibP6PX7DqDFwI1vgyz5nVVml/lS719kTOSyM3gmgzOh+pDUGobPoSHNi9ZnkbpvostCFJ69E49azDXyhjKbN9yq7EjQjq+2qMceRJDLTYztGJYglm52D5ajhQD7uKdxZHZnw3ae7UqC1FefxHvnphBUIYzKv1d2YhtnHUWDF0s5ZgJNtu5fsn7/YYWUuDc2PpM2Vch5pQVtrbQTQoY9AkhqgP5K1SwUYvS6fw9rpqD4uLHlrRGtAwE+U6VEbyjKkN2yeFLE2m2bceSbkaubUkiLIUiR6txlL5qFDAc/vZl1pn1X96C2twAOrPCdk672H9HFf5Fo6NCtw4pJ+VBXoHeZ+fqAqcn4vVTWocjyTWtnEv/3zvnJpjvYer88oV4JtQV9Nz8ilPgn/ezbdatdUYMtszI/55sF1sBg8iqEboOCu7NlqGzvMUKA9louM0UTepI=
 sudo: false
