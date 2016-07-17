@@ -1,7 +1,7 @@
 ---
 layout: post
 title:  "About my GSoC project"
-date:   2016-07-18 20:06:00 +0300
+date:   2016-07-17 20:06:00 +0300
 categories: tasks
 ---
 
