@@ -2,14 +2,25 @@ language: ruby
 rvm:
 - 2.2
 before_script:
-- chmod +x ./script/after_success
 script:
 - bundle exec jekyll build --config _config.yml,_config_gh_pages.yml
-after_success: "./script/after_success"
+after_success:
+- echo "Pull request number - ${TRAVIS_PULL_REQUEST}"
+- echo "Target branch name - ${TRAVIS_BRANCH}"
+- if [ $TRAVIS_PULL_REQUEST = 'false' ] && [ $TRAVIS_BRANCH = 'master' ]; then
+  chmod +x ./scripts/deploy;
+  source scripts/deploy;
+  fi;
 env:
   global:
   - NOKOGIRI_USE_SYSTEM_LIBRARIES=true
   - GITHUB_REPO: github.com/mvlabat/ark-gsoc-2016.git
   - REPO_TARGET_BRANCH: gh-pages
-  - secure: a5//DNwyXgG5mEbWSZpfmV2aLv/3UsmdAsY5lf7L+aTXknnLoIm2gt5LYdvl8ZqKXCEeLPNk3k6m0DDeyTJqqGakS0NJ6AjverclW33vDWAwcOeQuttQ3lGbGh3LPJW7hIEFbkAawr6kffbvyJaLYn8cCd1xEWax1679pKAgtkeZTRQQb2A6JEmtc+BAU4ElGbuZLYDc+t9sLhlF+a7Pa/EkzX5eKhAX1qXDJNx2R4ZLa8N+DLTsxcbqQrFqXG4RgP7KRVPC6572G6sAPubHlEF47tpTGms2TmDnMX8gw5mxxpgEaMC4rJqEib/4q8Ow3K9OWmat30C5V0FNA0xeKx64RxzW2eCGllCzI92rPma90ITOLJ8vKLeKSV7CZbL2NJw9WJI4W0pHuPjZX7p//ex4IpQcDmABghghFJuJxHRnRhvsWzatUNGF+ApLlheBme8rH15WOzcpQFMzndJZzfMy/Sl4tAzs6FamktRk6pvmF/KCxQhDgLZTMBhs+3i328QaAB1CC6tBlohlj4ETSfGkCSeDwo+If4y3OeIn4KC39x+fMi9WOypRpZSEk4ts1nyoAuUocByfjJeNfcy084yYAGVlt/oMAZlCPPBT89OXeTgZjcOCJoZrgfUJ946vHOw1O04J/OMDWa0yRspnIVrMfibgcVySWQ/km1ev3Vs=
 sudo: false
+notifications:
+  webhooks:
+    urls:
+      - https://webhooks.gitter.im/e/c22f5515b365447ab012
+    on_success: change  # options: [always|never|change] default: always
+    on_failure: always  # options: [always|never|change] default: always
+    on_start: never     # options: [always|never|change] default: always
