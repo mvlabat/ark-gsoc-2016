@@ -6,23 +6,9 @@
 </description>
     <link>http://mvlabat.github.io/ark-gsoc-2016/</link>
     <atom:link href="http://mvlabat.github.io/ark-gsoc-2016/feed.xml" rel="self" type="application/rss+xml"/>
-    <pubDate>Sun, 17 Jul 2016 17:21:53 +0000</pubDate>
-    <lastBuildDate>Sun, 17 Jul 2016 17:21:53 +0000</lastBuildDate>
+    <pubDate>Sun, 17 Jul 2016 21:34:51 +0000</pubDate>
+    <lastBuildDate>Sun, 17 Jul 2016 21:34:51 +0000</lastBuildDate>
     <generator>Jekyll v3.0.5</generator>
-    
-      <item>
-        <title>About my GSoC project</title>
-        <description>&lt;p&gt;I think it’s &lt;del&gt;slowpoke&lt;/del&gt; time to present my project finally. Better late than never. :)&lt;/p&gt;
-
-</description>
-        <pubDate>Wed, 18 May 2016 17:06:00 +0000</pubDate>
-        <link>http://mvlabat.github.io/ark-gsoc-2016/tasks/2016/05/18/about-my-gsoc-project.html</link>
-        <guid isPermaLink="true">http://mvlabat.github.io/ark-gsoc-2016/tasks/2016/05/18/about-my-gsoc-project.html</guid>
-        
-        
-        <category>tasks</category>
-        
-      </item>
     
       <item>
         <title>Hello! Let&#39;s start with CLion</title>
