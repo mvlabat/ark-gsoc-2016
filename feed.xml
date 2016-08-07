@@ -6,9 +6,37 @@
 </description>
     <link>http://mvlabat.github.io/ark-gsoc-2016/</link>
     <atom:link href="http://mvlabat.github.io/ark-gsoc-2016/feed.xml" rel="self" type="application/rss+xml"/>
-    <pubDate>Sun, 17 Jul 2016 22:09:25 +0000</pubDate>
-    <lastBuildDate>Sun, 17 Jul 2016 22:09:25 +0000</lastBuildDate>
+    <pubDate>Sun, 07 Aug 2016 18:25:41 +0000</pubDate>
+    <lastBuildDate>Sun, 07 Aug 2016 18:25:41 +0000</lastBuildDate>
     <generator>Jekyll v3.0.5</generator>
+    
+      <item>
+        <title>Some details about Qt properties system</title>
+        <description>&lt;p&gt;As I promised, in this post I shall tell you about some details of Qt properties system. Most probably, you’ll find it useful if you are only familiar but haven’t used Qt properties much in your code yet. Using them is a good way to start integrating your application to QtQuick, where, as far as I know, Qt properties are mostly used. Correct me, if I’m not accurate. I shan’t explain you what Qt properties are, so if you don’t know about them, you may want to read the following article: &lt;a href=&quot;http://doc.qt.io/qt-5/properties.html&quot; target=&quot;_blank&quot;&gt;http://doc.qt.io/qt-5/properties.html&lt;/a&gt;. This post actually will be quite short.&lt;/p&gt;
+
+</description>
+        <pubDate>Sun, 07 Aug 2016 18:18:00 +0000</pubDate>
+        <link>http://mvlabat.github.io/ark-gsoc-2016/researches/2016/08/07/some-details-about-qt-properties.html</link>
+        <guid isPermaLink="true">http://mvlabat.github.io/ark-gsoc-2016/researches/2016/08/07/some-details-about-qt-properties.html</guid>
+        
+        
+        <category>researches</category>
+        
+      </item>
+    
+      <item>
+        <title>Investigating archive operations</title>
+        <description>&lt;p&gt;In this post I’m going to tell you about some advanced using of terminal utilities for zip, 7z and rar archive types. It’ll cover the following operations: add files to specific folder in archive, move or rename files and copy files within archive. There will be described both solutions with using only classic command line programs for mentioned archive formats and programmed workarounds for solving the problems, if those tools are inefficient.&lt;/p&gt;
+
+</description>
+        <pubDate>Sun, 07 Aug 2016 17:23:00 +0000</pubDate>
+        <link>http://mvlabat.github.io/ark-gsoc-2016/researches/2016/08/07/investigating-archive-operations.html</link>
+        <guid isPermaLink="true">http://mvlabat.github.io/ark-gsoc-2016/researches/2016/08/07/investigating-archive-operations.html</guid>
+        
+        
+        <category>researches</category>
+        
+      </item>
     
       <item>
         <title>About my GSoC project</title>
