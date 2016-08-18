@@ -22,6 +22,8 @@ After:<BR>
 
 Now I'm going to create my project page on <a href="https://community.kde.org/GSoC/2016/StatusReports">https://community.kde.org/GSoC/2016/StatusReports</a>
 
+**Update.** Done: <a href="https://community.kde.org/GSoC/2016/StatusReports/Batyrenko_Vladyslav">https://community.kde.org/GSoC/2016/StatusReports/Batyrenko_Vladyslav</a>
+
 ## The End
 So... Shortly, that was a great experience. :) I'm very glad I was selected for Google Summer of Code. It gave me valuable experience in working on real open source products, developed both my hard and soft skills and gave me new contacts. Hello to my new 10 friends in Facebook from India, adding a guy you haven't even known (no, that's good (: ). You guys are very open, communicable and nice. )
 
